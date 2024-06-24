@@ -63,3 +63,31 @@ def test_timing():
     timing2 = min(timeit.repeat('mycrypt.encode("a"*1000)',
                                 'import mycrypt', repeat=3, number=30))
     assert 0.95 * timing2 < timing1 < 1.05 * timing2
+
+'''Test encoding string of maximum length, and a string with too big length'''
+def test_encode_length_1000():
+    test_input = "a" * 1000
+    encoded_result = mycrypt.encode(test_input)
+    assert len(encoded_result) == 1000
+def test_encode_length_1001():
+    test_input = "a" * 1001
+    with pytest.raises(ValueError):
+        mycrypt.encode(test_input)
+
+'''Test encoding string with mixed case characters and numbers'''
+@pytest.mark.parametrize("test_input, expected", [
+    ('abc', 'NOP'),
+    ('AbC', 'nOp'),
+    ('aBc123', 'NoP!"#')
+])
+def test_encode_mixed_case_characters(test_input, expected):
+    assert mycrypt.encode(test_input) == expected
+
+'''Test behavior with empty input string'''
+def test_encode_empty_string():
+    assert mycrypt.encode("") == ""
+
+'''Test encoding and decoding string with mixed case characters and numbers'''
+@pytest.mark.parametrize("test_input", ['abc', 'AbC', 'aBc12#'])
+def test_encode_decode_mixed_case_characters(test_input):
+    assert(mycrypt.decode(mycrypt.encode(test_input))) == test_input
