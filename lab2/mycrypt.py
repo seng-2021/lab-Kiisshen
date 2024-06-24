@@ -1,6 +1,13 @@
+'''
+Module for encoding and decoding in ROT13, but also chaning case of letters.
+'''
 import codecs
 
 def encode(s):
+    '''
+    Encoding function that encodes in ROT13 but also changes lower case to upper case, 
+    and upper case to lower case, as well as changes numbers to special characters.
+    '''
     if not isinstance(s,str):
         raise TypeError
     origlen = len(s)
@@ -20,11 +27,14 @@ def encode(s):
             # Rot13 the character for maximum security
             crypted+=codecs.encode(c,'rot13')
         elif c in digitmapping:
-          crypted+=digitmapping[c]
+            crypted+=digitmapping[c]
         else:
             raise ValueError
 
     return crypted[0:origlen]
 
 def decode(s):
+    '''
+    Decoding Function for encoded strings using the same logic as the encoder.
+    '''
     return encode(s)
