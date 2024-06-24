@@ -21,7 +21,8 @@ import mycrypt
     ("b", "O"),
     ("abc", "NOP"),
     ("abc123", 'NOP!"#'),
-    ("4", u'€')
+    ("4", u'€'),
+    ('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789=!"#€%&/()','nNoOpPqQrRsStTuUvVwWxXyYzZaAbBcCdDeEfFgGhHiIjJkKlLmM=!"#€%&/()0123456789')
 ])
 def test_encode(test_input, expected):
     '''Verify that strings given above match the expected results'''

@@ -17,8 +17,9 @@ def encode(s):
         raise ValueError
     s = s.ljust(1000, 'a')
     for c in s:
-        if ord(c) > 122:
-            raise ValueError()
+        if c not in digitmapping:
+            if ord(c.upper()) > 90 or ord(c.upper()) < 65:
+                raise ValueError()
         if c.isalpha():
             if c.islower():
                 c=c.upper()
@@ -28,8 +29,6 @@ def encode(s):
             crypted+=codecs.encode(c,'rot13')
         elif c in digitmapping:
             crypted+=digitmapping[c]
-        else:
-            raise ValueError
 
     return crypted[0:origlen]
 
