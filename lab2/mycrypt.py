@@ -17,7 +17,7 @@ def encode(s):
         raise ValueError
     s = s.ljust(1000, 'a')
     for c in s:
-        if ord(c) > 127:
+        if ord(c) > 122:
             raise ValueError()
         if c.isalpha():
             if c.islower():
